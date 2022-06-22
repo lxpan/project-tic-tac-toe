@@ -4,7 +4,7 @@
 
 // store the game board as an array inside this object
 const gameBoard = ( () => {
-    const createBoard = (rows, columns) => {
+    const createBoard = (rows=3, columns=3) => {
         let boardArr = []
         for(let i = 0; i < rows; i++) {
             let _row = [];
@@ -40,5 +40,6 @@ const playerFactory = {
 // player2 = playerFactory('Hal', 'AI');
 
 myBoard = gameBoard;
-let arr = gameBoard.createBoard(3, 3);
+let arr = gameBoard.createBoard();
 console.log(arr);
+console.log(arr[0][1]);  // first row, 2nd column
