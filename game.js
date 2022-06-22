@@ -2,10 +2,24 @@
 
 // *--------- Modules
 
-// represents current state of the game board (and actions that players can take?)
-const gameBoard = {
+// store the game board as an array inside this object
+const gameBoard = ( () => {
+    const createBoard = (rows, columns) => {
+        let boardArr = []
+        for(let i = 0; i < rows; i++) {
+            let _row = [];
+            for(let j = 0; j < columns; j++) {
+                _row.push(j);
+            }
+            boardArr.push(_row);
+        }
+        return boardArr;
+    }
 
-}
+    return {
+        createBoard
+    }
+}) ();
 
 // render contents of gameBoard array to webpage
 const displayController = {
@@ -18,14 +32,13 @@ const gameRunner = {
 }
 
 // *--------- Factories
-
 const playerFactory = {
 
 }
 
-players = []
-player1 = playerFactory('Luoxi', 'human');
-player2 = playerFactory('Hal', 'AI');
-players.push(player1, player2);
+// player1 = playerFactory('Luoxi', 'human');
+// player2 = playerFactory('Hal', 'AI');
 
-const gameInstance = gameRunner(players, gameBoard);
+myBoard = gameBoard;
+let arr = gameBoard.createBoard(3, 3);
+console.log(arr);
