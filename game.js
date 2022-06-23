@@ -14,10 +14,12 @@ const gameBoard = ( () => {
             boardArr.push(_row);
         }
         return boardArr;
-    }
+    };
+
+    const boardState = createBoard();
 
     return {
-        createBoard
+        boardState
     }
 }) ();
 
@@ -40,6 +42,6 @@ const playerFactory = {
 // player2 = playerFactory('Hal', 'AI');
 
 myBoard = gameBoard;
-let arr = gameBoard.createBoard();
+let arr = gameBoard.boardState;
 console.log(arr);
 console.log(arr[0][1]);  // first row, 2nd column
