@@ -28,10 +28,28 @@ const gameBoard = ( () => {
     }
 }) ();
 
-// render contents of gameBoard array to webpage
-const displayController = {
+/* 
+render contents of gameBoard array to webpage
+input: boardState
+action: modify DOM to display boardState
+*/
+const displayController = ( (boardArr) => {
+    const renderGameBoard = () => {
+        const gameBoardDiv = document.querySelector('.gameBoard');
+        const cells = gameBoardDiv.children;
 
-}
+        console.log(cells);
+        
+        // for each board array slot
+        for(let i = 0; i < boardArr.length; i++) {
+            let cell = cells[i];
+            cell.innerHTML = boardArr[i];
+        }
+    }
+    return {
+        renderGameBoard
+    };
+})( ['.', '.', '.', '.', 'X', '.', 'O', '.', '.'] );
 
 // the outermost object
 const gameRunner = {
@@ -49,4 +67,5 @@ const playerFactory = {
 myBoard = gameBoard;
 let arr = gameBoard.boardState;
 console.log(arr);
-console.log(arr[0][1]);  // first row, 2nd column
+let controller = displayController;
+controller.renderGameBoard();
