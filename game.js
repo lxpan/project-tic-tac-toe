@@ -16,7 +16,12 @@ const gameBoard = ( () => {
         return boardArr;
     };
 
-    const boardState = createBoard();
+    const boardState = [ 
+        ['', 'X', ''],
+        ['', 'O', ''],
+        ['', '', '']
+    ]
+    //createBoard();
 
     return {
         boardState
