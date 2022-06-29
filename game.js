@@ -34,11 +34,11 @@ render contents of gameBoard array to webpage
 input: boardState
 action: modify DOM to display boardState
 */
-DEFAULT_STATE = ['X', 'X', '.', '.', 'X', '.', 'O', '.', '.'];
+TEST_BOARD = ['X', 'X', '.', '.', 'X', '.', 'O', '.', '.'];
 
-const displayController = ( (boardArr) => {
-    const renderGameBoard = () => {
-        const gameBoardDiv = document.querySelector('.gameBoard');
+const displayController = ( (doc) => {
+    const renderGameBoard = (boardArr) => {
+        const gameBoardDiv = doc.querySelector('.gameBoard');
         const cells = gameBoardDiv.children;
 
         // console.log(cells);
@@ -52,22 +52,22 @@ const displayController = ( (boardArr) => {
     return {
         renderGameBoard
     };
-}) (DEFAULT_STATE);
+}) (document);
 
 // the outermost object
-const gameRunner = ( (doc) => {
+const gameRunner = ( () => {
     /* This function/module will invoke the displayController and handle click events from the player. */
     const myBoard = gameBoard; // creates board object filled with board slot objects.
     const controller = displayController;  // renders the board by reading from gameBoard.
 
     const run = () => {
-        controller.renderGameBoard()
+        controller.renderGameBoard(TEST_BOARD);
     }
 
     return {
         run
     }
-}) (document);
+}) ();
 
 // *--------- Factories
 const playerFactory = {
