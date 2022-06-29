@@ -38,7 +38,7 @@ const displayController = ( (boardArr) => {
         const gameBoardDiv = document.querySelector('.gameBoard');
         const cells = gameBoardDiv.children;
 
-        console.log(cells);
+        // console.log(cells);
         
         // for each board array slot
         for(let i = 0; i < boardArr.length; i++) {
@@ -49,7 +49,8 @@ const displayController = ( (boardArr) => {
     return {
         renderGameBoard
     };
-})( ['.', '.', '.', '.', 'X', '.', 'O', '.', '.'] );
+}) ();
+// })( ['X', 'X', '.', '.', 'X', '.', 'O', '.', '.'] );
 
 // the outermost object
 const gameRunner = {
@@ -65,7 +66,8 @@ const playerFactory = {
 // player2 = playerFactory('Hal', 'AI');
 
 myBoard = gameBoard;
-let arr = gameBoard.boardState;
-console.log(arr);
-let controller = displayController;
-controller.renderGameBoard();
+console.log(myBoard)
+// let arr = gameBoard.boardState;
+// console.log(arr);
+// let controller = displayController;
+// controller.renderGameBoard();
