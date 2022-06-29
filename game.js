@@ -4,6 +4,7 @@
 
 // store the game board as an array inside this object
 const gameBoard = ( () => {
+    // redundant
     const createBoard = (rows=3, columns=3) => {
         let boardArr = []
         for(let i = 0; i < rows; i++) {
@@ -33,6 +34,8 @@ render contents of gameBoard array to webpage
 input: boardState
 action: modify DOM to display boardState
 */
+DEFAULT_STATE = ['X', 'X', '.', '.', 'X', '.', 'O', '.', '.'];
+
 const displayController = ( (boardArr) => {
     const renderGameBoard = () => {
         const gameBoardDiv = document.querySelector('.gameBoard');
@@ -49,12 +52,13 @@ const displayController = ( (boardArr) => {
     return {
         renderGameBoard
     };
-}) ();
-// })( ['X', 'X', '.', '.', 'X', '.', 'O', '.', '.'] );
+}) (DEFAULT_STATE);
 
 // the outermost object
 const gameRunner = {
-
+    /* 
+    This function/module will invoke the displayController and handle click events from the player.
+    */
 }
 
 // *--------- Factories
@@ -67,7 +71,8 @@ const playerFactory = {
 
 myBoard = gameBoard;
 console.log(myBoard)
-// let arr = gameBoard.boardState;
-// console.log(arr);
-// let controller = displayController;
-// controller.renderGameBoard();
+let controller = displayController;
+console.log(controller);
+
+
+controller.renderGameBoard();
