@@ -34,7 +34,7 @@ render contents of gameBoard array to webpage
 input: boardState
 action: modify DOM to display boardState
 */
-TEST_BOARD = ['X', 'X', '.', '.', 'X', '.', 'O', '.', '.'];
+TEST_BOARD = ['X', 'X', 'O', 'O', 'X', 'O', 'O', 'O', 'X'];
 
 const displayController = ( (doc) => {
     const renderGameBoard = (boardArr) => {
