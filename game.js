@@ -55,11 +55,11 @@ const displayController = ( (boardArr) => {
 }) (DEFAULT_STATE);
 
 // the outermost object
-const gameRunner = {
+const gameRunner = ( () => {
     /* 
     This function/module will invoke the displayController and handle click events from the player.
     */
-}
+}) ();
 
 // *--------- Factories
 const playerFactory = {
