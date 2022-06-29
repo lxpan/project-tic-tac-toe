@@ -55,11 +55,19 @@ const displayController = ( (boardArr) => {
 }) (DEFAULT_STATE);
 
 // the outermost object
-const gameRunner = ( () => {
-    /* 
-    This function/module will invoke the displayController and handle click events from the player.
-    */
-}) ();
+const gameRunner = ( (doc) => {
+    /* This function/module will invoke the displayController and handle click events from the player. */
+    const myBoard = gameBoard; // from module (currently does nothing)
+    const controller = displayController;
+
+    const run = () => {
+        controller.renderGameBoard()
+    }
+
+    return {
+        run
+    }
+}) (document);
 
 // *--------- Factories
 const playerFactory = {
@@ -69,10 +77,5 @@ const playerFactory = {
 // player1 = playerFactory('Luoxi', 'human');
 // player2 = playerFactory('Hal', 'AI');
 
-myBoard = gameBoard;
-console.log(myBoard)
-let controller = displayController;
-console.log(controller);
-
-
-controller.renderGameBoard();
+const runner = gameRunner;
+runner.run();
