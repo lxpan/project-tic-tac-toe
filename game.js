@@ -57,8 +57,8 @@ const displayController = ( (boardArr) => {
 // the outermost object
 const gameRunner = ( (doc) => {
     /* This function/module will invoke the displayController and handle click events from the player. */
-    const myBoard = gameBoard; // from module (currently does nothing)
-    const controller = displayController;
+    const myBoard = gameBoard; // creates board object filled with board slot objects.
+    const controller = displayController;  // renders the board by reading from gameBoard.
 
     const run = () => {
         controller.renderGameBoard()
