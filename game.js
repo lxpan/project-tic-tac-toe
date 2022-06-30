@@ -38,14 +38,14 @@ TEST_BOARD = ['X', 'X', 'O', 'O', 'X', 'O', 'O', 'O', 'X'];
 
 const displayController = ( (doc) => {
     const renderGameBoard = (boardArr) => {
-        const gameBoardDiv = doc.querySelector('.gameBoard');
-        const cellDivs = gameBoardDiv.children;
+        const gameBoardContainer = doc.querySelector('.gameBoard');
+        const gameBoardCells = gameBoardContainer.children;
 
         // console.log(cells);
         
         // for each board array slot
         for(let i = 0; i < boardArr.length; i++) {
-            let cellDiv = cellDivs[i];
+            let cellDiv = gameBoardCells[i];
             cellDiv.innerHTML = boardArr[i];
             // add event listener here
         }
