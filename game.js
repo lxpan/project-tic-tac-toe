@@ -43,7 +43,7 @@ const displayController = ( (doc) => {
 
     // function used by eventListener
     // if empty, place an 'X' or 'O' depending on if player 1 or player 2
-    const _placeMove = (evt) => {
+    const _playMove = (evt) => {
         if(!evt.target.textContent) {
             if(currentPlayer === 1) {
                 currentPlayerMove = 'X';
@@ -57,8 +57,9 @@ const displayController = ( (doc) => {
             }
         }
 
-        // write current move to gameBoard
+        // retrieve the cell number that was played
         const playedCellNumber = evt.target.dataset.cellNumber;
+        // write current move to gameBoard array
         board.boardState[playedCellNumber - 1] = currentPlayerMove;
         console.log(`Cell number: ${playedCellNumber}`);
         console.log(board.boardState);
@@ -74,7 +75,7 @@ const displayController = ( (doc) => {
         for(let i = 0; i < board.boardState.length; i++) {
             let cellDiv = gameBoardCells[i];
             cellDiv.innerHTML = board.boardState[i];
-            cellDiv.addEventListener('click', _placeMove);
+            cellDiv.addEventListener('click', _playMove);
         }
 
         console.log(Array
