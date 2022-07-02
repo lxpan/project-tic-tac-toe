@@ -37,6 +37,12 @@ action: modify DOM to display boardState
 TEST_BOARD = ['X', 'X', 'O', 'O', 'X', 'O', 'O', 'O', 'X'];
 
 const displayController = ( (doc) => {
+    // function used by eventListener
+    // if empty, place an 'X' or 'O' depending on if player 1 or player 2
+    const _placeMove = (evt) => {
+        evt.target.textContent = '?';
+    }
+
     const renderGameBoard = (boardArr) => {
         const gameBoardContainer = doc.querySelector('.gameBoard');
         const gameBoardCells = gameBoardContainer.children;
@@ -47,8 +53,12 @@ const displayController = ( (doc) => {
         for(let i = 0; i < boardArr.length; i++) {
             let cellDiv = gameBoardCells[i];
             cellDiv.innerHTML = boardArr[i];
-            // add event listener here
+            cellDiv.addEventListener('click', _placeMove);
         }
+
+        console.log(Array
+                        .from(gameBoardCells)
+                        .map(cell => cell.textContent));
     }
 
     return {
@@ -73,7 +83,8 @@ const gameRunner = ( () => {
 
 // *--------- Factories
 const playerFactory = {
-
+    'name': null,
+    'assigned': 'noughts'
 }
 
 // player1 = playerFactory('Luoxi', 'human');
