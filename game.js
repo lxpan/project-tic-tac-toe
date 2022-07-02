@@ -67,10 +67,14 @@ const displayController = ( (doc) => {
 }) (document);
 
 // the outermost object
-const gameRunner = ( () => {
+const game = ( () => {
     /* This function/module will invoke the displayController and handle click events from the player. */
     const myBoard = gameBoard; // creates board object filled with board slot objects.
     const controller = displayController;  // renders the board by reading from gameBoard.
+
+    const placeMove = () => {
+        
+    }
 
     const run = () => {
         controller.renderGameBoard(TEST_BOARD);
@@ -90,5 +94,5 @@ const playerFactory = {
 // player1 = playerFactory('Luoxi', 'human');
 // player2 = playerFactory('Hal', 'AI');
 
-const runner = gameRunner;
+const runner = game;
 runner.run();
