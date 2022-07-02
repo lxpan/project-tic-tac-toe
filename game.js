@@ -17,11 +17,8 @@ const gameBoard = ( () => {
         return boardArr;
     };
 
-    const boardState = [ 
-        ['', 'X', ''],
-        ['', 'O', ''],
-        ['', '', '']
-    ]
+    const boardState = ['X', 'X', 'O', 'O', '', 'O', 'O', 'O', 'X'];
+    // [ ['', 'X', ''],['', 'O', ''],['', '', '']]
     //createBoard();
 
     return {
@@ -77,7 +74,8 @@ const game = ( () => {
     }
 
     const run = () => {
-        controller.renderGameBoard(TEST_BOARD);
+        console.log(myBoard.boardState)
+        controller.renderGameBoard(myBoard.boardState);
     }
 
     return {
