@@ -36,35 +36,44 @@ action: modify DOM to display boardState
 
 
 const displayController = ( (doc) => {
+    const board = gameBoard;
+
     let currentPlayer = 1;
+    let currentPlayerMove = null;
 
     // function used by eventListener
     // if empty, place an 'X' or 'O' depending on if player 1 or player 2
     const _placeMove = (evt) => {
         if(!evt.target.textContent) {
             if(currentPlayer === 1) {
-                evt.target.textContent = 'X';
+                currentPlayerMove = 'X';
+                evt.target.textContent = currentPlayerMove;
                 currentPlayer = 2;
             }
             else {
-                evt.target.textContent = 'O';
+                currentPlayerMove = 'O';
+                evt.target.textContent = currentPlayerMove;
                 currentPlayer = 1;
             }
         }
 
-        console.log(`Cell number: ${evt.target.dataset.cellNumber}`);
+        // write current move to gameBoard
+        const playedCellNumber = evt.target.dataset.cellNumber;
+        board.boardState[playedCellNumber - 1] = currentPlayerMove;
+        console.log(`Cell number: ${playedCellNumber}`);
+        console.log(board.boardState);
     }
 
-    const renderGameBoard = (boardArr) => {
+    const renderGameBoard = () => {
         const gameBoardContainer = doc.querySelector('.gameBoard');
         const gameBoardCells = gameBoardContainer.children;
 
         // console.log(cells);
         
         // for each board array slot
-        for(let i = 0; i < boardArr.length; i++) {
+        for(let i = 0; i < board.boardState.length; i++) {
             let cellDiv = gameBoardCells[i];
-            cellDiv.innerHTML = boardArr[i];
+            cellDiv.innerHTML = board.boardState[i];
             cellDiv.addEventListener('click', _placeMove);
         }
 
@@ -81,7 +90,7 @@ const displayController = ( (doc) => {
 // the outermost object
 const game = ( () => {
     /* This function/module will invoke the displayController and handle click events from the player. */
-    const myBoard = gameBoard; // creates board object filled with board slot objects.
+    // const myBoard = gameBoard; // creates board object filled with board slot objects.
     const controller = displayController;  // renders the board by reading from gameBoard.
 
     const placeMove = () => {
@@ -89,7 +98,7 @@ const game = ( () => {
     }
 
     const run = () => {
-        controller.renderGameBoard(myBoard.boardState);
+        controller.renderGameBoard();
     }
 
     return {
