@@ -9,5 +9,11 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    gap: 1em;
+    gap: .1em;
+}
+
+.gameBoard div {
+    padding: 20px;
+    background-color: aqua;
+    border: solid black;
 }
