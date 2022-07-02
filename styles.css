@@ -13,7 +13,12 @@ body {
 }
 
 .gameBoard div {
-    padding: 20px;
-    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: solid black;
+    padding: 20px;
+    
+    background-color: aqua;
+    
 }
