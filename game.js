@@ -36,11 +36,20 @@ action: modify DOM to display boardState
 
 
 const displayController = ( (doc) => {
+    let currentPlayer = 1;
+
     // function used by eventListener
     // if empty, place an 'X' or 'O' depending on if player 1 or player 2
     const _placeMove = (evt) => {
         if(!evt.target.textContent) {
-            evt.target.textContent = '?';
+            if(currentPlayer === 1) {
+                evt.target.textContent = 'X';
+                currentPlayer = 2;
+            }
+            else {
+                evt.target.textContent = 'O';
+                currentPlayer = 1;
+            }
         }
 
         console.log(`Cell number: ${evt.target.dataset.cellNumber}`);
