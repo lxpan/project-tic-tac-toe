@@ -40,8 +40,10 @@ const displayController = ( (doc) => {
     // if empty, place an 'X' or 'O' depending on if player 1 or player 2
     const _placeMove = (evt) => {
         if(!evt.target.textContent) {
-evt.target.textContent = '?';
+            evt.target.textContent = '?';
         }
+
+        console.log(`Cell number: ${evt.target.dataset.cellNumber}`);
     }
 
     const renderGameBoard = (boardArr) => {
