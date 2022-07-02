@@ -3,7 +3,7 @@
 // *--------- Modules
 
 // store the game board as an array inside this object
-TEST_BOARD = ['X', 'X', 'O', 'O', 'X', 'O', 'O', 'O', 'X'];
+TEST_BOARD = ['X', 'X', 'O', '', '', '', '', '', ''];
 
 const gameBoard = ( () => {
     // redundant
