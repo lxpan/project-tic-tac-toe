@@ -3,6 +3,8 @@
 // *--------- Modules
 
 // store the game board as an array inside this object
+TEST_BOARD = ['X', 'X', 'O', 'O', 'X', 'O', 'O', 'O', 'X'];
+
 const gameBoard = ( () => {
     // redundant
     const createBoard = (rows=3, columns=3) => {
@@ -17,7 +19,7 @@ const gameBoard = ( () => {
         return boardArr;
     };
 
-    const boardState = ['X', 'X', 'O', 'O', '', 'O', 'O', 'O', 'X'];
+    const boardState = TEST_BOARD;
     // [ ['', 'X', ''],['', 'O', ''],['', '', '']]
     //createBoard();
 
@@ -31,13 +33,15 @@ render contents of gameBoard array to webpage
 input: boardState
 action: modify DOM to display boardState
 */
-TEST_BOARD = ['X', 'X', 'O', 'O', 'X', 'O', 'O', 'O', 'X'];
+
 
 const displayController = ( (doc) => {
     // function used by eventListener
     // if empty, place an 'X' or 'O' depending on if player 1 or player 2
     const _placeMove = (evt) => {
-        evt.target.textContent = '?';
+        if(!evt.target.textContent) {
+evt.target.textContent = '?';
+        }
     }
 
     const renderGameBoard = (boardArr) => {
@@ -74,7 +78,6 @@ const game = ( () => {
     }
 
     const run = () => {
-        console.log(myBoard.boardState)
         controller.renderGameBoard(myBoard.boardState);
     }
 
