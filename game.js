@@ -4,24 +4,11 @@
 
 // store the game board as an array inside this object
 TEST_BOARD = [['X', 'X', 'O'], ['X', 'O', 'O'], ['', '', 'X']];
+EMPTY_BOARD = [['', '', ''], ['', '', ''], ['', '', '']];
 
 const gameBoard = ( () => {
-    // redundant
-    const createBoard = (rows=3, columns=3) => {
-        let boardArr = []
-        for(let i = 0; i < rows; i++) {
-            let _row = [];
-            for(let j = 0; j < columns; j++) {
-                _row.push(j);
-            }
-            boardArr.push(_row);
-        }
-        return boardArr;
-    };
-
-    const boardState = TEST_BOARD;
-    // [ ['', 'X', ''],['', 'O', ''],['', '', '']]
-    //createBoard();
+    // const boardState = TEST_BOARD;
+    const boardState = EMPTY_BOARD;
 
     const validateVictory = (movesObj, winType) => {
         const movesArray = Array.from(movesObj);
