@@ -73,11 +73,15 @@ const gameBoard = ( () => {
         validateVictory(reverseDiagonalMoves, 'on the reverse diagonal');
     }
 
+    const checkBoardForVictory = () => {
+        checkRowsForVictory();
+        checkColumnsForVictory();
+        checkDiagonalsForVictory();    
+    }
+
     return {
         boardState,
-        checkRowsForVictory,
-        checkColumnsForVictory,
-        checkDiagonalsForVictory
+        checkBoardForVictory
     }
 }) ();
 
@@ -123,9 +127,7 @@ const game = ( (doc) => {
         }
 
         _writePlayedMoveToBoard();
-        board.checkRowsForVictory();
-        board.checkColumnsForVictory();
-        board.checkDiagonalsForVictory();
+        board.checkBoardForVictory();
     }
 
     const renderGameBoard = () => {
