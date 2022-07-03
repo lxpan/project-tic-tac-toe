@@ -3,7 +3,7 @@
 // *--------- Modules
 
 // store the game board as an array inside this object
-TEST_BOARD = [['X', 'X', ''], ['X', 'O', 'O'], ['', '', 'O']];
+TEST_BOARD = [['X', 'X', 'O'], ['X', 'O', 'O'], ['', '', 'X']];
 
 const gameBoard = ( () => {
     // redundant
@@ -48,15 +48,36 @@ const gameBoard = ( () => {
                 moves.push(boardState[row][col])
             }
 
-            console.log(moves);
             validateVictory(moves, 'vertically');
         }
+    }
+
+    const checkDiagonalsForVictory = () => {
+        let mainDiagonalMoves = [];
+        // check main diagonal
+        for(let i = 0; i < 3; i++) {
+            mainDiagonalMoves.push(boardState[i][i]);
+        }
+
+        // check reverse diagonal
+        reverseDiagonalMoves = [];
+        let row = 0; let col = 2;
+        while(col >= 0) {
+            reverseDiagonalMoves.push(boardState[row][col]);
+            row++;
+            col--;
+        }
+
+        console.log(reverseDiagonalMoves);
+        validateVictory(mainDiagonalMoves, 'on the main diagonal');
+        validateVictory(reverseDiagonalMoves, 'on the reverse diagonal');
     }
 
     return {
         boardState,
         checkRowsForVictory,
-        checkColumnsForVictory
+        checkColumnsForVictory,
+        checkDiagonalsForVictory
     }
 }) ();
 
@@ -104,6 +125,7 @@ const game = ( (doc) => {
         _writePlayedMoveToBoard();
         board.checkRowsForVictory();
         board.checkColumnsForVictory();
+        board.checkDiagonalsForVictory();
     }
 
     const renderGameBoard = () => {
