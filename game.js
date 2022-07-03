@@ -3,7 +3,7 @@
 // *--------- Modules
 
 // store the game board as an array inside this object
-TEST_BOARD = [['X', 'X', ''], ['O', 'O', ''], ['', '', '']];
+TEST_BOARD = [['X', 'X', ''], ['X', 'O', 'O'], ['', '', 'O']];
 
 const gameBoard = ( () => {
     // redundant
@@ -23,7 +23,7 @@ const gameBoard = ( () => {
     // [ ['', 'X', ''],['', 'O', ''],['', '', '']]
     //createBoard();
 
-    const validateVictory = (movesObj) => {
+    const validateVictory = (movesObj, winType) => {
         const movesArray = Array.from(movesObj);
 
         const allEqualX = movesArray.every(move => move === 'X');
@@ -33,26 +33,6 @@ const gameBoard = ( () => {
         if(allEqualO) console.log('Player O wins!');
     }
 
-    // const checkRowsForVictory = () => {
-    //     let prev = 0;
-        
-    //     for(let i = 1; i<= 3; i++) {
-    //         let index = null;
-    //         let moves = [];
-            
-    //         for(let j = 1; j <= 3; j++) {
-    //             index = prev + j;
-    //             moves.push(boardState[index - 1])
-    //             // console.log(index);
-    //         }
-    //         console.log(moves);
-    //         validateVictory(moves);
-
-            
-    //         prev = index;
-    //     }
-    // }
-
     const checkRowsForVictory = () => {
         // for each row, check if rows are allEqual
         for(let i = 0; i < 3; i++) {
@@ -61,30 +41,22 @@ const gameBoard = ( () => {
     }
 
     const checkColumnsForVictory = () => {
-        let prev = 0;
-        
-        for(let i = 1; i<= 3; i++) {
-            let index = null;
-            let moves = [];
-            
-            for(let j = 1; j <= 3; j++) {
-                index = prev + j;
-                moves.push(boardState[index - 1])
-                // console.log(index);
+        for(let col = 0; col < 3; col++) {
+            const moves = [];
+
+            for(let row = 0; row < 3; row++) {
+                moves.push(boardState[row][col])
             }
+
             console.log(moves);
             validateVictory(moves);
-
-            
-            prev = index;
         }
     }
 
-    
-
     return {
         boardState,
-        checkRowsForVictory
+        checkRowsForVictory,
+        checkColumnsForVictory
     }
 }) ();
 
@@ -111,8 +83,8 @@ const game = ( (doc) => {
 
             // write current move to gameBoard array
             board.boardState[playedRowNumber - 1][playedColumnNumber - 1] = currentPlayerMove;
-            console.log(`Row: ${playedRowNumber}, Col: ${playedColumnNumber}`);
-            console.log(board.boardState);
+            // console.log(`Row: ${playedRowNumber}, Col: ${playedColumnNumber}`);
+            // console.log(board.boardState);
         }
 
         // Plays an 'X' if player 1's turn, an 'O' otherwise
@@ -131,6 +103,7 @@ const game = ( (doc) => {
 
         _writePlayedMoveToBoard();
         board.checkRowsForVictory();
+        board.checkColumnsForVictory();
     }
 
     const renderGameBoard = () => {
