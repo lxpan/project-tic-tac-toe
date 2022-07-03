@@ -29,14 +29,14 @@ const gameBoard = ( () => {
         const allEqualX = movesArray.every(move => move === 'X');
         const allEqualO = movesArray.every(move => move === 'O');
 
-        if(allEqualX) console.log('Player X wins!');
-        if(allEqualO) console.log('Player O wins!');
+        if(allEqualX) console.log(`Player X wins ${winType}!`);
+        if(allEqualO) console.log(`Player O wins ${winType}!`);
     }
 
     const checkRowsForVictory = () => {
         // for each row, check if rows are allEqual
         for(let i = 0; i < 3; i++) {
-            validateVictory(boardState[i]);
+            validateVictory(boardState[i], 'horizontally');
         }
     }
 
@@ -49,7 +49,7 @@ const gameBoard = ( () => {
             }
 
             console.log(moves);
-            validateVictory(moves);
+            validateVictory(moves, 'vertically');
         }
     }
 
