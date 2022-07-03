@@ -3,7 +3,7 @@
 // *--------- Modules
 
 // store the game board as an array inside this object
-TEST_BOARD = ['X', 'X', 'O', '', '', '', '', '', ''];
+TEST_BOARD = ['X', 'X', '', 'O', 'O', '', '', '', ''];
 
 const gameBoard = ( () => {
     // redundant
@@ -23,8 +23,59 @@ const gameBoard = ( () => {
     // [ ['', 'X', ''],['', 'O', ''],['', '', '']]
     //createBoard();
 
+    const validateVictory = (movesArray) => {
+        const allEqualX = movesArray.every(move => move === 'X');
+        const allEqualO = movesArray.every(move => move === 'O');
+
+        if(allEqualX) console.log('Player X wins!');
+        if(allEqualO) console.log('Player O wins!');
+    }
+
+    const checkRowsForVictory = () => {
+        let prev = 0;
+        
+        for(let i = 1; i<= 3; i++) {
+            let index = null;
+            let moves = [];
+            
+            for(let j = 1; j <= 3; j++) {
+                index = prev + j;
+                moves.push(boardState[index - 1])
+                // console.log(index);
+            }
+            console.log(moves);
+            validateVictory(moves);
+
+            
+            prev = index;
+        }
+    }
+
+    const checkColumnsForVictory = () => {
+        let prev = 0;
+        
+        for(let i = 1; i<= 3; i++) {
+            let index = null;
+            let moves = [];
+            
+            for(let j = 1; j <= 3; j++) {
+                index = prev + j;
+                moves.push(boardState[index - 1])
+                // console.log(index);
+            }
+            console.log(moves);
+            validateVictory(moves);
+
+            
+            prev = index;
+        }
+    }
+
+    
+
     return {
-        boardState
+        boardState,
+        checkRowsForVictory
     }
 }) ();
 
@@ -35,7 +86,7 @@ action: modify DOM to display boardState
 */
 
 
-const displayController = ( (doc) => {
+const game = ( (doc) => {
     const board = gameBoard;
 
     let currentPlayer = 1;
@@ -61,8 +112,10 @@ const displayController = ( (doc) => {
         const playedCellNumber = evt.target.dataset.cellNumber;
         // write current move to gameBoard array
         board.boardState[playedCellNumber - 1] = currentPlayerMove;
-        console.log(`Cell number: ${playedCellNumber}`);
-        console.log(board.boardState);
+        // console.log(`Cell number: ${playedCellNumber}`);
+        // console.log(board.boardState);
+
+        board.checkRowsForVictory();
     }
 
     const renderGameBoard = () => {
@@ -91,10 +144,10 @@ const displayController = ( (doc) => {
 // the outermost object
 const gameRunner = ( () => {
     /* This function/module will invoke the displayController and handle click events from the player. */
-    const controller = displayController;  // renders the board by reading from gameBoard.
+    const _game = game;  // renders the board by reading from gameBoard.
 
     const run = () => {
-        controller.renderGameBoard();
+        _game.renderGameBoard();
     }
 
     return {
