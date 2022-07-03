@@ -1,5 +1,18 @@
 // Project: Tic Tac Toe
 
+// *--------- Factories
+const player = (name, order) => {
+    const getName = () => name;
+    const getPlayerOrder = () => order;
+    const score = 0;
+
+    return {
+        getName,
+        getPlayerOrder,
+        score
+    }
+}
+
 // *--------- Modules
 
 // store the game board as an array inside this object
@@ -147,6 +160,11 @@ const gameRunner = ( () => {
     /* This function/module will invoke the displayController and handle click events from the player. */
     const _game = game;  // renders the board by reading from gameBoard.
 
+    const playerOne = player('Dumb', 1);
+    const playerTwo = player('Dumber', 2);
+    console.log(playerOne.getName());
+    console.log(playerTwo);
+
     const run = () => {
         _game.renderGameBoard();
     }
@@ -155,20 +173,6 @@ const gameRunner = ( () => {
         run
     }
 }) ();
-
-// *--------- Factories
-const playerFactory = (name, order) => {
-    const getName = () => name;
-    const getPlayerOrder = () => order;
-    const score = 0;
-
-    return {
-        getName,
-        getPlayerOrder,
-        score
-    }
-
-}
 
 // player1 = playerFactory('Luoxi', 'human');
 // player2 = playerFactory('Hal', 'AI');
