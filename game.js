@@ -3,7 +3,7 @@
 // *--------- Modules
 
 // store the game board as an array inside this object
-TEST_BOARD = ['X', 'X', '', 'O', 'O', '', '', '', ''];
+TEST_BOARD = [['X', 'X', ''], ['O', 'O', ''], ['', '', '']];
 
 const gameBoard = ( () => {
     // redundant
@@ -125,9 +125,11 @@ const game = ( (doc) => {
         // console.log(cells);
         
         // for each board array slot
-        for(let i = 0; i < board.boardState.length; i++) {
+        const flatArray = board.boardState.flat();
+        
+        for(let i = 0; i < flatArray.length; i++) {
             let cellDiv = gameBoardCells[i];
-            cellDiv.innerHTML = board.boardState[i];
+            cellDiv.innerHTML = flatArray[i];
             cellDiv.addEventListener('click', _playMove);
         }
 
