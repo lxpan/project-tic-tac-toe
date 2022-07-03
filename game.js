@@ -104,6 +104,18 @@ const game = ( (doc) => {
     // function used by eventListener
     // if empty, place an 'X' or 'O' depending on if player 1 or player 2
     const _playMove = (evt) => {
+        const _writePlayedMoveToBoard = () => {
+            // retrieve the cell number that was played
+            const playedRowNumber = evt.target.dataset.rowNumber;
+            const playedColumnNumber = evt.target.dataset.columnNumber;
+
+            // write current move to gameBoard array
+            board.boardState[playedRowNumber - 1][playedColumnNumber - 1] = currentPlayerMove;
+            console.log(`Row: ${playedRowNumber}, Col: ${playedColumnNumber}`);
+            console.log(board.boardState);
+        }
+
+        // Plays an 'X' if player 1's turn, an 'O' otherwise
         if(!evt.target.textContent) {
             if(currentPlayer === 1) {
                 currentPlayerMove = 'X';
@@ -117,13 +129,7 @@ const game = ( (doc) => {
             }
         }
 
-        // retrieve the cell number that was played
-        const playedCellNumber = evt.target.dataset.cellNumber;
-        // write current move to gameBoard array
-        board.boardState[playedCellNumber - 1] = currentPlayerMove;
-        // console.log(`Cell number: ${playedCellNumber}`);
-        console.log(board.boardState);
-
+        _writePlayedMoveToBoard();
         board.checkRowsForVictory();
     }
 
