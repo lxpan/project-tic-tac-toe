@@ -157,9 +157,17 @@ const gameRunner = ( () => {
 }) ();
 
 // *--------- Factories
-const playerFactory = {
-    'name': null,
-    'assigned': 'noughts'
+const playerFactory = (name, order) => {
+    const getName = () => name;
+    const getPlayerOrder = () => order;
+    const score = 0;
+
+    return {
+        getName,
+        getPlayerOrder,
+        score
+    }
+
 }
 
 // player1 = playerFactory('Luoxi', 'human');
