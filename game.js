@@ -23,7 +23,9 @@ const gameBoard = ( () => {
     // [ ['', 'X', ''],['', 'O', ''],['', '', '']]
     //createBoard();
 
-    const validateVictory = (movesArray) => {
+    const validateVictory = (movesObj) => {
+        const movesArray = Array.from(movesObj);
+
         const allEqualX = movesArray.every(move => move === 'X');
         const allEqualO = movesArray.every(move => move === 'O');
 
@@ -31,23 +33,30 @@ const gameBoard = ( () => {
         if(allEqualO) console.log('Player O wins!');
     }
 
-    const checkRowsForVictory = () => {
-        let prev = 0;
+    // const checkRowsForVictory = () => {
+    //     let prev = 0;
         
-        for(let i = 1; i<= 3; i++) {
-            let index = null;
-            let moves = [];
+    //     for(let i = 1; i<= 3; i++) {
+    //         let index = null;
+    //         let moves = [];
             
-            for(let j = 1; j <= 3; j++) {
-                index = prev + j;
-                moves.push(boardState[index - 1])
-                // console.log(index);
-            }
-            console.log(moves);
-            validateVictory(moves);
+    //         for(let j = 1; j <= 3; j++) {
+    //             index = prev + j;
+    //             moves.push(boardState[index - 1])
+    //             // console.log(index);
+    //         }
+    //         console.log(moves);
+    //         validateVictory(moves);
 
             
-            prev = index;
+    //         prev = index;
+    //     }
+    // }
+
+    const checkRowsForVictory = () => {
+        // for each row, check if rows are allEqual
+        for(let i = 0; i < 3; i++) {
+            validateVictory(boardState[i]);
         }
     }
 
@@ -113,7 +122,7 @@ const game = ( (doc) => {
         // write current move to gameBoard array
         board.boardState[playedCellNumber - 1] = currentPlayerMove;
         // console.log(`Cell number: ${playedCellNumber}`);
-        // console.log(board.boardState);
+        console.log(board.boardState);
 
         board.checkRowsForVictory();
     }
