@@ -22,21 +22,30 @@ EMPTY_BOARD = [['', '', ''], ['', '', ''], ['', '', '']];
 const gameBoard = ( () => {
     // const boardState = TEST_BOARD;
     const boardState = EMPTY_BOARD;
+    let victoryStatus = {
+        'winner': null,
+        'type': null
+    }
 
-    const validateVictory = (movesObj, winType) => {
+    const checkPlayerWin = (movesObj, winType) => {
         const movesArray = Array.from(movesObj);
-
         const allEqualX = movesArray.every(move => move === 'X');
         const allEqualO = movesArray.every(move => move === 'O');
 
-        if(allEqualX) console.log(`Player X wins ${winType}!`);
-        if(allEqualO) console.log(`Player O wins ${winType}!`);
+        if(allEqualX) {
+            victoryStatus.winner = 1;
+            victoryStatus.type = winType;
+        }
+        else if(allEqualO) {
+            victoryStatus.winner = 2;
+            victoryStatus.type = winType;
+        }
     }
 
     const checkRowsForVictory = () => {
         // for each row, check if rows are allEqual
         for(let i = 0; i < 3; i++) {
-            validateVictory(boardState[i], 'horizontally');
+            checkPlayerWin(boardState[i], 'horizontally');
         }
     }
 
@@ -48,7 +57,7 @@ const gameBoard = ( () => {
                 moves.push(boardState[row][col])
             }
 
-            validateVictory(moves, 'vertically');
+            checkPlayerWin(moves, 'vertically');
         }
     }
 
@@ -69,8 +78,8 @@ const gameBoard = ( () => {
         }
 
         console.log(reverseDiagonalMoves);
-        validateVictory(mainDiagonalMoves, 'on the main diagonal');
-        validateVictory(reverseDiagonalMoves, 'on the reverse diagonal');
+        checkPlayerWin(mainDiagonalMoves, 'on the main diagonal');
+        checkPlayerWin(reverseDiagonalMoves, 'on the reverse diagonal');
     }
 
     const checkBoardForVictory = () => {
@@ -81,7 +90,8 @@ const gameBoard = ( () => {
 
     return {
         boardState,
-        checkBoardForVictory
+        checkBoardForVictory,
+        victoryStatus
     }
 }) ();
 
@@ -121,13 +131,16 @@ const game = ( (doc) => {
             }
             else {
                 currentPlayerMove = 'O';
-                evt.target.textContent = currentPlayerMove;
+                evt.target.textContent=  currentPlayerMove;
                 currentPlayer = 1;
             }
         }
 
         _writePlayedMoveToBoard();
         board.checkBoardForVictory();
+        if(board.victoryStatus.winner) {
+            console.log(`Player ${board.victoryStatus.winner} has won!`);
+        }
     }
 
     const renderGameBoard = () => {
