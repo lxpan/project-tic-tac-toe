@@ -42,47 +42,47 @@ const gameBoard = ( () => {
         }
     }
 
-    const checkRowsForVictory = () => {
-        // for each row, check if rows are allEqual
-        for(let i = 0; i < 3; i++) {
-            checkPlayerWin(boardState[i], 'horizontally');
-        }
-    }
-
-    const checkColumnsForVictory = () => {
-        for(let col = 0; col < 3; col++) {
-            const moves = [];
-
-            for(let row = 0; row < 3; row++) {
-                moves.push(boardState[row][col])
-            }
-
-            checkPlayerWin(moves, 'vertically');
-        }
-    }
-
-    const checkDiagonalsForVictory = () => {
-        let mainDiagonalMoves = [];
-        // check main diagonal
-        for(let i = 0; i < 3; i++) {
-            mainDiagonalMoves.push(boardState[i][i]);
-        }
-
-        // check reverse diagonal
-        reverseDiagonalMoves = [];
-        let row = 0; let col = 2;
-        while(col >= 0) {
-            reverseDiagonalMoves.push(boardState[row][col]);
-            row++;
-            col--;
-        }
-
-        console.log(reverseDiagonalMoves);
-        checkPlayerWin(mainDiagonalMoves, 'on the main diagonal');
-        checkPlayerWin(reverseDiagonalMoves, 'on the reverse diagonal');
-    }
-
     const checkBoardForVictory = () => {
+        const checkRowsForVictory = () => {
+            // for each row, check if rows are allEqual
+            for(let i = 0; i < 3; i++) {
+                checkPlayerWin(boardState[i], 'horizontally');
+            }
+        }
+    
+        const checkColumnsForVictory = () => {
+            for(let col = 0; col < 3; col++) {
+                const moves = [];
+    
+                for(let row = 0; row < 3; row++) {
+                    moves.push(boardState[row][col])
+                }
+    
+                checkPlayerWin(moves, 'vertically');
+            }
+        }
+    
+        const checkDiagonalsForVictory = () => {
+            let mainDiagonalMoves = [];
+            // check main diagonal
+            for(let i = 0; i < 3; i++) {
+                mainDiagonalMoves.push(boardState[i][i]);
+            }
+    
+            // check reverse diagonal
+            reverseDiagonalMoves = [];
+            let row = 0; let col = 2;
+            while(col >= 0) {
+                reverseDiagonalMoves.push(boardState[row][col]);
+                row++;
+                col--;
+            }
+    
+            console.log(reverseDiagonalMoves);
+            checkPlayerWin(mainDiagonalMoves, 'on the main diagonal');
+            checkPlayerWin(reverseDiagonalMoves, 'on the reverse diagonal');
+        }
+
         checkRowsForVictory();
         checkColumnsForVictory();
         checkDiagonalsForVictory();    
