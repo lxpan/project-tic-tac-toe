@@ -31,3 +31,31 @@ body {
     font-size: 3rem;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.scoreBoard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: calc( (var(--board-slot-length) + var(--board-slot-padding) * 2 + .3em) * 3);
+    border: solid black;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.playerPanel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+}
+
+.playerScore {
+    font-size: 1.5rem;
+}
+
+#playerOneScore {
+    display: flex;
+    justify-content: end;
+}
