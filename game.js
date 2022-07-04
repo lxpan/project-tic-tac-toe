@@ -107,6 +107,10 @@ const game = ( (doc) => {
 
     let currentPlayer = 1;
     let currentPlayerMove = null;
+    let score = {
+        'playerOne': 0,
+        'playerTwo': 0,
+    }
 
     // function used by eventListener
     // if empty, place an 'X' or 'O' depending on if player 1 or player 2
@@ -138,8 +142,13 @@ const game = ( (doc) => {
 
         _writePlayedMoveToBoard();
         board.checkBoardForVictory();
+
         if(board.victoryStatus.winner) {
             console.log(`Player ${board.victoryStatus.winner} has won!`);
+            if(board.victoryStatus.winner == '1') score.playerOne++;
+            if(board.victoryStatus.winner == '2') score.playerTwo++;
+
+            console.log(score);
         }
     }
 
