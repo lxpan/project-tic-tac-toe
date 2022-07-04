@@ -1,3 +1,8 @@
+:root {
+    --board-slot-length: 50px;
+    --board-slot-padding: 20px;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -18,9 +23,9 @@ body {
     align-items: center;
     border: solid black;
     
-    height: 50px;
-    width: 50px;
-    padding: 20px;
+    height: var(--board-slot-length);
+    width: var(--board-slot-length);
+    padding: var(--board-slot-padding);
     
     background-color: aqua;
     font-size: 3rem;
