@@ -112,6 +112,12 @@ const game = ( (doc) => {
         'playerTwo': 0,
     }
 
+    const _updateScore = (player, score) => {
+        const idName = (player == 1) ? 'playerOneScore' : 'playerTwoScore';
+        const playerScore = doc.getElementById(idName);
+        playerScore.textContent = score;
+    }
+
     // function used by eventListener
     // if empty, place an 'X' or 'O' depending on if player 1 or player 2
     const _playMove = (evt) => {
@@ -144,9 +150,16 @@ const game = ( (doc) => {
         board.checkBoardForVictory();
 
         if(board.victoryStatus.winner) {
-            console.log(`Player ${board.victoryStatus.winner} has won!`);
-            if(board.victoryStatus.winner == '1') score.playerOne++;
-            if(board.victoryStatus.winner == '2') score.playerTwo++;
+            
+
+            if(board.victoryStatus.winner == '1') {
+                console.log(`Player ${board.victoryStatus.winner} has won!`);
+                _updateScore(1, ++score.playerOne);
+            }
+            if(board.victoryStatus.winner == '2') {
+                console.log(`Player ${board.victoryStatus.winner} has won!`);
+                _updateScore(2, ++score.playerTwo);
+            }
 
             console.log(score);
         }
