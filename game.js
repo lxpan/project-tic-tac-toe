@@ -150,18 +150,13 @@ const game = ( (doc) => {
         board.checkBoardForVictory();
 
         if(board.victoryStatus.winner) {
-            
-
             if(board.victoryStatus.winner == '1') {
-                console.log(`Player ${board.victoryStatus.winner} has won!`);
                 _updateScore(1, ++score.playerOne);
             }
-            if(board.victoryStatus.winner == '2') {
-                console.log(`Player ${board.victoryStatus.winner} has won!`);
+            else if(board.victoryStatus.winner == '2') {
                 _updateScore(2, ++score.playerTwo);
             }
-
-            console.log(score);
+            console.log(`Player ${board.victoryStatus.winner} has won!`);
         }
     }
 
