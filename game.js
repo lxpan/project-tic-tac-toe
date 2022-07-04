@@ -78,7 +78,6 @@ const gameBoard = ( () => {
                 col--;
             }
     
-            console.log(reverseDiagonalMoves);
             checkPlayerWin(mainDiagonalMoves, 'on the main diagonal');
             checkPlayerWin(reverseDiagonalMoves, 'on the reverse diagonal');
         }
@@ -163,8 +162,6 @@ const game = ( (doc) => {
     const renderGameBoard = () => {
         const gameBoardContainer = doc.querySelector('.gameBoard');
         const gameBoardCells = gameBoardContainer.children;
-
-        // console.log(cells);
         
         // for each board array slot
         const flatArray = board.boardState.flat();
