@@ -28,6 +28,7 @@ const gameBoard = ( () => {
     }
 
     const checkPlayerWin = (movesObj, winType) => {
+        // console.log('Check for victory...');
         const movesArray = Array.from(movesObj);
         const allEqualX = movesArray.every(move => move === 'X');
         const allEqualO = movesArray.every(move => move === 'O');
@@ -40,13 +41,17 @@ const gameBoard = ( () => {
             victoryStatus.winner = 2;
             victoryStatus.type = winType;
         }
+        // console.log(victoryStatus);
     }
 
+    // function references a different boardState
     const checkBoardForVictory = () => {
+        console.log(boardState);
         const checkRowsForVictory = () => {
             // for each row, check if rows are allEqual
             for(let i = 0; i < 3; i++) {
                 checkPlayerWin(boardState[i], 'horizontally');
+                // console.log(self.boardState[i]);
             }
         }
     
@@ -87,10 +92,24 @@ const gameBoard = ( () => {
         checkDiagonalsForVictory();    
     }
 
+    const resetBoard = () => {
+        return [['', '', ''], ['', '', ''], ['', '', '']];
+        // boardState = [['', '', ''], ['', '', ''], ['', '', '']];
+    }
+
+    const resetVictoryStatus = () => {
+        return {
+            'winner': null,
+            'type': null
+        }
+    }
+
     return {
         boardState,
         checkBoardForVictory,
-        victoryStatus
+        victoryStatus,
+        resetBoard,
+        resetVictoryStatus
     }
 }) ();
 
@@ -102,7 +121,7 @@ action: modify DOM to display boardState
 
 
 const game = ( (doc) => {
-    const board = gameBoard;
+    let board = gameBoard;
 
     let currentPlayer = 1;
     let currentPlayerMove = null;
@@ -155,8 +174,26 @@ const game = ( (doc) => {
             else if(board.victoryStatus.winner == '2') {
                 _updateScore(2, ++score.playerTwo);
             }
+            
             console.log(`Player ${board.victoryStatus.winner} has won!`);
+
+            // reset board
+            // console.log(board.victoryStatus);
+            _resetGame();
         }
+    }
+
+    const _resetGame = () => {
+        // board.boardState = board.resetBoard();
+        board.resetBoard();
+        board.boardState = [['', '', ''], ['', '', ''], ['', '', '']];
+
+        board.victoryStatus = board.resetVictoryStatus();
+        console.log(board.victoryStatus);
+        
+        currentPlayer = 1;
+        currentPlayerMove = null;
+        renderGameBoard();
     }
 
     const renderGameBoard = () => {
@@ -189,15 +226,14 @@ const gameRunner = ( () => {
 
     const playerOne = player('Dumb', 1);
     const playerTwo = player('Dumber', 2);
-    console.log(playerOne.getName());
-    console.log(playerTwo);
 
     const run = () => {
         _game.renderGameBoard();
     }
 
     return {
-        run
+        run,
+        _game
     }
 }) ();
 
