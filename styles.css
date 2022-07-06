@@ -60,6 +60,15 @@ body {
     justify-content: end;
 }
 
+/* Form Content */
+.modal-content,
+.playerFormContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+
 /* Modal */
 .modal {
     position: fixed;

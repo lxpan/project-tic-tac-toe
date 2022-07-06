@@ -30,11 +30,20 @@
             <div id="playerTwoScore" class="playerScore">0</div>
         </div>
     </div>
-    <button class="trigger">Click here to trigger the modal!</button>
+    <button class="trigger">Click here to enter player names!</button>
     <div class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h1>Hello, I am a modal!</h1>
+            <h1>Enter player names!</h1>
+            <form id="playerNameForm" action="">
+                <div class="playerFormContent">
+                    <label for="player1Name">Player 1 Name: </label>
+                    <input type="text" name="player1Name" id="player1Name">
+                    <label for="player2Name">Player 2 Name: </label>
+                    <input type="text" name="player2Name" id="player2Name">
+                    <button type="submit" form="playerNameForm">Submit!</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
