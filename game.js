@@ -269,6 +269,31 @@ function setupModal() {
 // player2 = playerFactory('Hal', 'AI');
 
 const runner = gameRunner;
-runner.run();
 
+runner.run();
 setupModal();
+
+const btn = document.querySelector('#submit');
+const form = document.querySelector('#playerNameForm');
+
+function readFormData(e) {
+    const modifyPlayerNameDOM = () => {
+        let p1Name = document.getElementById('playerOneName');
+        let p2Name = document.getElementById('playerTwoName');
+    
+        p1Name.textContent = formData.get('player1Name');
+        p2Name.textContent = formData.get('player2Name');
+    }
+
+    // prevent the form from submitting
+    e.preventDefault();
+
+    // show the form values
+    const formData = new FormData(form);
+    const values = [...formData.entries()];
+    console.log(values);
+
+    modifyPlayerNameDOM();
+}
+
+btn.addEventListener('click', readFormData);
