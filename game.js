@@ -52,11 +52,6 @@ const game = ( (doc) => {
 
     let currentPlayer = 1;
     let currentPlayerMove = null;
-    
-    let score = {
-        'playerOne': 0,
-        'playerTwo': 0,
-    }
 
     let victoryStatus = {
         'winner': null,
