@@ -61,7 +61,6 @@ body {
 }
 
 /* Form Content */
-.modal-content,
 .playerFormContent {
     display: flex;
     flex-direction: column;
