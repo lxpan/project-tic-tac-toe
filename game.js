@@ -221,7 +221,9 @@ const game = ( (doc) => {
     }
 
     return {
-        renderGameBoard
+        renderGameBoard,
+        playerOne,
+        playerTwo
     };
 }) (document);
 
@@ -263,10 +265,10 @@ function readFormData(e) {
         p1NameInput.textContent = formData.get('player1Name');
         p2NameInput.textContent = formData.get('player2Name');
 
-        gameInstance.playerOne = playerFactory(formData.get('player1Name'), 1);
-        gameInstance.playerTwo = playerFactory(formData.get('player2Name'), 2);
+        gameInstance.playerOne.name = formData.get('player1Name');
+        gameInstance.playerTwo.name = formData.get('player2Name');
         // log players
-        console.log(gameInstance.playerOne.getName(), gameInstance.playerTwo.getName());
+        console.log(gameInstance.playerOne.name + gameInstance.playerTwo.name);
     }
 
     // prevent the form from submitting
