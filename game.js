@@ -118,8 +118,6 @@ const game = ( (doc) => {
 
             // write current move to gameBoard array
             board.boardState[playedRowNumber - 1][playedColumnNumber - 1] = currentPlayerMove;
-            // console.log(`Row: ${playedRowNumber}, Col: ${playedColumnNumber}`);
-            // console.log(board.boardState);
         }
 
         // Plays an 'X' if player 1's turn, an 'O' otherwise
@@ -137,7 +135,6 @@ const game = ( (doc) => {
         }
 
         _writePlayedMoveToBoard();
-        // board.checkBoardForVictory();
         checkBoardForVictory();
 
         if(victoryStatus.winner) {
@@ -150,17 +147,12 @@ const game = ( (doc) => {
             }
             
             console.log(`Player ${victoryStatus.winner} has won!`);
-
-            // reset board
-            // console.log(board.victoryStatus);
+            
             _resetGame();
         }
     }
 
     const _resetGame = () => {
-        // board.boardState = board.resetBoard();
-        // board.resetBoard();
-        // 
         board.boardState = [['', '', ''], ['', '', ''], ['', '', '']];
 
         victoryStatus = {
