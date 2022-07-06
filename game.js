@@ -245,26 +245,30 @@ const gameRunner = ( () => {
     }
 }) ();
 
+function setupModal() {
+    const modal = document.querySelector(".modal");
+    const trigger = document.querySelector(".trigger");
+    const closeButton = document.querySelector(".close-button");
+    
+    function toggleModal() {
+        modal.classList.toggle("show-modal");
+    }
+    
+    function windowOnClick(event) {
+        if (event.target === modal) {
+            toggleModal();
+        }
+    }
+    
+    trigger.addEventListener("click", toggleModal);
+    closeButton.addEventListener("click", toggleModal);
+    window.addEventListener("click", windowOnClick);
+}
+
 // player1 = playerFactory('Luoxi', 'human');
 // player2 = playerFactory('Hal', 'AI');
 
 const runner = gameRunner;
 runner.run();
 
-const modal = document.querySelector(".modal");
-const trigger = document.querySelector(".trigger");
-const closeButton = document.querySelector(".close-button");
-
-function toggleModal() {
-    modal.classList.toggle("show-modal");
-}
-
-function windowOnClick(event) {
-    if (event.target === modal) {
-        toggleModal();
-    }
-}
-
-trigger.addEventListener("click", toggleModal);
-closeButton.addEventListener("click", toggleModal);
-window.addEventListener("click", windowOnClick);
+setupModal();
