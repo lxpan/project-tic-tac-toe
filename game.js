@@ -1,17 +1,14 @@
 // Project: Tic Tac Toe
 
 // *--------- Factories
-const playerFactory = (_name, order) => {
-    const getName = () => _name;
-    const getPlayerOrder = () => order;
+const playerFactory = (_name, _order) => {
+    let name = _name;
+    let order = _order;
     const score = 0;
-    let name;
-
     return {
-        getName,
-        getPlayerOrder,
-        score,
-        name
+        name,
+        order,
+        score
     }
 }
 
@@ -51,7 +48,7 @@ const gameBoard = ( () => {
 const game = ( (doc) => {
     let board = gameBoard;
     let playerOne = playerFactory('Player 1', 1);
-    let playerTwo = playerFactory('Player 2', 1);
+    let playerTwo = playerFactory('Player 2', 2);
 
     let currentPlayer = 1;
     let currentPlayerMove = null;
