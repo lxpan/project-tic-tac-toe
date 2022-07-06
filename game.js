@@ -1,15 +1,17 @@
 // Project: Tic Tac Toe
 
 // *--------- Factories
-const playerFactory = (name, order) => {
-    const getName = () => name;
+const playerFactory = (_name, order) => {
+    const getName = () => _name;
     const getPlayerOrder = () => order;
     const score = 0;
+    let name;
 
     return {
         getName,
         getPlayerOrder,
-        score
+        score,
+        name
     }
 }
 
@@ -45,20 +47,15 @@ const gameBoard = ( () => {
     }
 }) ();
 
-/* 
-render contents of gameBoard array to webpage
-input: boardState
-action: modify DOM to display boardState
-*/
-
 
 const game = ( (doc) => {
     let board = gameBoard;
-    let playerOne;
-    let playerTwo;
+    let playerOne = playerFactory('Player 1', 1);
+    let playerTwo = playerFactory('Player 2', 1);
 
     let currentPlayer = 1;
     let currentPlayerMove = null;
+    
     let score = {
         'playerOne': 0,
         'playerTwo': 0,
@@ -88,7 +85,7 @@ const game = ( (doc) => {
 
     // function references a different boardState
     const checkBoardForVictory = () => {
-        console.log(board.boardState);
+        // console.log(board.boardState);
         const checkRowsForVictory = () => {
             // for each row, check if rows are allEqual
             for(let i = 0; i < 3; i++) {
@@ -134,7 +131,7 @@ const game = ( (doc) => {
         checkDiagonalsForVictory();    
     }
 
-    const _updateScore = (player, score) => {
+    const _updateScoreDOM = (player, score) => {
         const idName = (player == 1) ? 'playerOneScore' : 'playerTwoScore';
         const playerScore = doc.getElementById(idName);
         playerScore.textContent = score;
@@ -174,10 +171,11 @@ const game = ( (doc) => {
 
         if(victoryStatus.winner) {
             if(victoryStatus.winner == '1') {
-                _updateScore(1, ++score.playerOne);
+                _updateScoreDOM(1, ++playerOne.score);
+                console.log(playerOne.score);
             }
             else if(victoryStatus.winner == '2') {
-                _updateScore(2, ++score.playerTwo);
+                _updateScoreDOM(2, ++playerTwo.score);
             }
             
             console.log(`Player ${victoryStatus.winner} has won!`);
@@ -198,8 +196,6 @@ const game = ( (doc) => {
             'winner': null,
             'type': null
         }
-
-        console.log(board.victoryStatus);
         
         currentPlayer = 1;
         currentPlayerMove = null;
@@ -228,6 +224,7 @@ const game = ( (doc) => {
         renderGameBoard
     };
 }) (document);
+
 
 function setupModal() {
     const modal = document.querySelector(".modal");
