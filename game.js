@@ -47,6 +47,7 @@ const gameBoard = ( () => {
 
 const game = ( (doc) => {
     let board = gameBoard;
+    // create players with default names
     let playerOne = playerFactory('Player 1', 1);
     let playerTwo = playerFactory('Player 2', 2);
 
@@ -72,17 +73,13 @@ const game = ( (doc) => {
             victoryStatus.winner = 2;
             victoryStatus.type = winType;
         }
-        // console.log(victoryStatus);
     }
 
-    // function references a different boardState
     const checkBoardForVictory = () => {
-        // console.log(board.boardState);
         const checkRowsForVictory = () => {
             // for each row, check if rows are allEqual
             for(let i = 0; i < 3; i++) {
                 checkPlayerWin(board.boardState[i], 'horizontally');
-                // console.log(self.boardState[i]);
             }
         }
     
