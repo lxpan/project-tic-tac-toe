@@ -21,8 +21,18 @@ EMPTY_BOARD = [['', '', ''], ['', '', ''], ['', '', '']];
 const gameBoard = ( () => {
     const boardState = EMPTY_BOARD;
 
+    const checkBoardForTie = (boardArr) => {
+        const playerMovesOnly = boardArr.flat().filter(x => x == 'X' || x == 'O')
+
+        if(playerMovesOnly.length == 9) {
+            console.log('Tie detected!')
+            return true;
+        }
+    }
+
     return {
-        boardState
+        boardState,
+        checkBoardForTie
     }
 }) ();
 
@@ -136,18 +146,21 @@ const game = ( (doc) => {
 
         _writePlayedMoveToBoard();
         checkBoardForVictory();
+        if (board.checkBoardForTie(board.boardState)) {
+            _resetGame();
+        }
 
+        // update the score if we have a winner
         if(victoryStatus.winner) {
             if(victoryStatus.winner == '1') {
                 _updateScoreDOM(1, ++playerOne.score);
-                console.log(playerOne.score);
             }
             else if(victoryStatus.winner == '2') {
                 _updateScoreDOM(2, ++playerTwo.score);
             }
             
-            console.log(`Player ${victoryStatus.winner} has won!`);
-            
+            console.log(`Player ${victoryStatus.winner} has won! Their score is now: ${playerOne.score}`);
+
             _resetGame();
         }
     }
