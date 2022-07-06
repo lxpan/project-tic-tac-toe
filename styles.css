@@ -32,11 +32,22 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.scoreBoard {
+.scoreBoard,
+.scoreContent {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.victoryMessage {
+    font-size: large;
+    color: red;
+    text-align: center;
+    padding: 10px;
+}
+
+.scoreBoard {
     margin-top: 20px;
     width: calc( (var(--board-slot-length) + var(--board-slot-padding) * 2 + .3em) * 3);
     border: solid black;
@@ -58,6 +69,10 @@ body {
 #playerOneScore {
     display: flex;
     justify-content: end;
+}
+
+.hidden {
+    display: none;
 }
 
 /* Form Content */

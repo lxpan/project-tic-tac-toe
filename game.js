@@ -51,6 +51,8 @@ const game = ( (doc) => {
         'type': null
     }
 
+    const victoryDiv = document.querySelector('.victoryMessage');
+
     const checkPlayerWin = (movesObj, winType) => {
         // console.log('Check for victory...');
         const movesArray = Array.from(movesObj);
@@ -130,6 +132,11 @@ const game = ( (doc) => {
             board.boardState[playedRowNumber - 1][playedColumnNumber - 1] = currentPlayerMove;
         }
 
+        // clear victory message on new round
+        if(!victoryStatus.winner) {
+            victoryDiv.textContent = '';
+        }
+
         // Plays an 'X' if player 1's turn, an 'O' otherwise
         if(!evt.target.textContent) {
             if(currentPlayer === 1) {
@@ -158,6 +165,8 @@ const game = ( (doc) => {
             else if(victoryStatus.winner == '2') {
                 _updateScoreDOM(2, ++playerTwo.score);
             }
+
+            victoryDiv.textContent = `Congratulations Player ${victoryStatus.winner}! You have won!`;
             
             console.log(`Player ${victoryStatus.winner} has won! Their score is now: ${playerOne.score}`);
 
