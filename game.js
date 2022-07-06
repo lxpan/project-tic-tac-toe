@@ -1,7 +1,7 @@
 // Project: Tic Tac Toe
 
 // *--------- Factories
-const player = (name, order) => {
+const playerFactory = (name, order) => {
     const getName = () => name;
     const getPlayerOrder = () => order;
     const score = 0;
@@ -54,6 +54,8 @@ action: modify DOM to display boardState
 
 const game = ( (doc) => {
     let board = gameBoard;
+    let playerOne;
+    let playerTwo;
 
     let currentPlayer = 1;
     let currentPlayerMove = null;
@@ -227,24 +229,6 @@ const game = ( (doc) => {
     };
 }) (document);
 
-// the outermost object
-const gameRunner = ( () => {
-    /* This function/module will invoke the displayController and handle click events from the player. */
-    const _game = game;  // renders the board by reading from gameBoard.
-
-    const playerOne = player('Dumb', 1);
-    const playerTwo = player('Dumber', 2);
-
-    const run = () => {
-        _game.renderGameBoard();
-    }
-
-    return {
-        run,
-        _game
-    }
-}) ();
-
 function setupModal() {
     const modal = document.querySelector(".modal");
     const trigger = document.querySelector(".trigger");
@@ -265,12 +249,10 @@ function setupModal() {
     window.addEventListener("click", windowOnClick);
 }
 
-// player1 = playerFactory('Luoxi', 'human');
-// player2 = playerFactory('Hal', 'AI');
 
-const runner = gameRunner;
+const gameInstance = game;
+gameInstance.renderGameBoard();
 
-runner.run();
 setupModal();
 
 const btn = document.querySelector('#submit');
@@ -278,11 +260,16 @@ const form = document.querySelector('#playerNameForm');
 
 function readFormData(e) {
     const modifyPlayerNameDOM = () => {
-        let p1Name = document.getElementById('playerOneName');
-        let p2Name = document.getElementById('playerTwoName');
+        let p1NameInput = document.getElementById('playerOneName');
+        let p2NameInput = document.getElementById('playerTwoName');
     
-        p1Name.textContent = formData.get('player1Name');
-        p2Name.textContent = formData.get('player2Name');
+        p1NameInput.textContent = formData.get('player1Name');
+        p2NameInput.textContent = formData.get('player2Name');
+
+        gameInstance.playerOne = playerFactory(formData.get('player1Name'), 1);
+        gameInstance.playerTwo = playerFactory(formData.get('player2Name'), 2);
+        // log players
+        console.log(gameInstance.playerOne.getName(), gameInstance.playerTwo.getName());
     }
 
     // prevent the form from submitting
