@@ -19,28 +19,10 @@ TEST_BOARD = [['X', 'X', 'O'], ['X', 'O', 'O'], ['', '', 'X']];
 EMPTY_BOARD = [['', '', ''], ['', '', ''], ['', '', '']];
 
 const gameBoard = ( () => {
-    // const boardState = TEST_BOARD;
     const boardState = EMPTY_BOARD;
 
-
-    const resetBoard = () => {
-        return [['', '', ''], ['', '', ''], ['', '', '']];
-        // boardState = [['', '', ''], ['', '', ''], ['', '', '']];
-    }
-
-    const resetVictoryStatus = () => {
-        return {
-            'winner': null,
-            'type': null
-        }
-    }
-
     return {
-        boardState,
-        // checkBoardForVictory,
-        // victoryStatus,
-        // resetBoard,
-        // resetVictoryStatus
+        boardState
     }
 }) ();
 
