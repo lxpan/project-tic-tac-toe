@@ -285,4 +285,5 @@ startBtn.addEventListener('click', startGame);
 function startGame() {
     gameBoardDiv.classList.remove('hidden');
     gameInstance.renderGameBoard();
+    startBtn.textContent = 'Restart';
 }
