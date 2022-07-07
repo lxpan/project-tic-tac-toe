@@ -20,6 +20,73 @@ EMPTY_BOARD = [['', '', ''], ['', '', ''], ['', '', '']];
 
 const gameBoard = ( () => {
     const state = EMPTY_BOARD;
+    const victoryTracker = {
+        'winner': null,
+        'type': null
+    }
+
+    const checkThreeInARow = (movesObj, winType) => {
+        // console.log('Check for victory...');
+        const movesArray = Array.from(movesObj);
+        const allEqualX = movesArray.every(move => move === 'X');
+        const allEqualO = movesArray.every(move => move === 'O');
+
+        if(allEqualX) {
+            victoryTracker.winner = 1;
+            victoryTracker.type = winType;
+        }
+        else if(allEqualO) {
+            victoryTracker.winner = 2;
+            victoryTracker.type = winType;
+        }
+    }
+
+    const checkBoardForVictory = (boardArr) => {
+        const checkRowsForVictory = () => {
+            // for each row, check if rows are allEqual
+            for(let i = 0; i < 3; i++) {
+                // checkThreeInARow(boardArr[i], 'horizontally');
+                checkThreeInARow(boardArr[i], 'horizontally'); // 1, 2, or false
+            }
+        }
+    
+        const checkColumnsForVictory = () => {
+            for(let col = 0; col < 3; col++) {
+                const moves = [];
+    
+                for(let row = 0; row < 3; row++) {
+                    moves.push(boardArr[row][col])
+                }
+    
+                checkThreeInARow(moves, 'vertically');
+            }
+        }
+    
+        const checkDiagonalsForVictory = () => {
+            let mainDiagonalMoves = [];
+            // check main diagonal
+            for(let i = 0; i < 3; i++) {
+                mainDiagonalMoves.push(boardArr[i][i]);
+            }
+    
+            // check reverse diagonal
+            reverseDiagonalMoves = [];
+            let row = 0; let col = 2;
+            while(col >= 0) {
+                reverseDiagonalMoves.push(boardArr[row][col]);
+                row++;
+                col--;
+            }
+    
+            checkThreeInARow(mainDiagonalMoves, 'on the main diagonal');
+            checkThreeInARow(reverseDiagonalMoves, 'on the reverse diagonal');
+        }
+
+        checkRowsForVictory();
+        checkColumnsForVictory();
+        checkDiagonalsForVictory();    
+        return victoryTracker;
+    }
 
     const checkBoardForTie = (boardArr) => {
         const playerMovesOnly = boardArr.flat().filter(x => x == 'X' || x == 'O')
@@ -32,7 +99,9 @@ const gameBoard = ( () => {
 
     return {
         state,
-        checkBoardForTie
+        checkBoardForVictory,
+        checkBoardForTie,
+        victoryTracker
     }
 }) ();
 
@@ -52,67 +121,6 @@ const game = ( (doc) => {
     }
 
     const victoryDiv = document.querySelector('.victoryMessage');
-
-    const checkPlayerWin = (movesObj, winType) => {
-        // console.log('Check for victory...');
-        const movesArray = Array.from(movesObj);
-        const allEqualX = movesArray.every(move => move === 'X');
-        const allEqualO = movesArray.every(move => move === 'O');
-
-        if(allEqualX) {
-            victoryStatus.winner = 1;
-            victoryStatus.type = winType;
-        }
-        else if(allEqualO) {
-            victoryStatus.winner = 2;
-            victoryStatus.type = winType;
-        }
-    }
-
-    const checkBoardForVictory = () => {
-        const checkRowsForVictory = () => {
-            // for each row, check if rows are allEqual
-            for(let i = 0; i < 3; i++) {
-                checkPlayerWin(board.state[i], 'horizontally');
-            }
-        }
-    
-        const checkColumnsForVictory = () => {
-            for(let col = 0; col < 3; col++) {
-                const moves = [];
-    
-                for(let row = 0; row < 3; row++) {
-                    moves.push(board.state[row][col])
-                }
-    
-                checkPlayerWin(moves, 'vertically');
-            }
-        }
-    
-        const checkDiagonalsForVictory = () => {
-            let mainDiagonalMoves = [];
-            // check main diagonal
-            for(let i = 0; i < 3; i++) {
-                mainDiagonalMoves.push(board.state[i][i]);
-            }
-    
-            // check reverse diagonal
-            reverseDiagonalMoves = [];
-            let row = 0; let col = 2;
-            while(col >= 0) {
-                reverseDiagonalMoves.push(board.state[row][col]);
-                row++;
-                col--;
-            }
-    
-            checkPlayerWin(mainDiagonalMoves, 'on the main diagonal');
-            checkPlayerWin(reverseDiagonalMoves, 'on the reverse diagonal');
-        }
-
-        checkRowsForVictory();
-        checkColumnsForVictory();
-        checkDiagonalsForVictory();    
-    }
 
     const _updateScoreDOM = (player, score) => {
         const idName = (player == 1) ? 'playerOneScore' : 'playerTwoScore';
@@ -152,7 +160,11 @@ const game = ( (doc) => {
         }
 
         _writePlayedMoveToBoard();
-        checkBoardForVictory();
+
+        // this needs to mutate victoryStatus
+        // return: who won, win type
+        victoryStatus = board.checkBoardForVictory(board.state);
+
         if (board.checkBoardForTie(board.state)) {
             _resetGame();
         }
@@ -168,7 +180,7 @@ const game = ( (doc) => {
 
             victoryDiv.textContent = `Congratulations Player ${victoryStatus.winner}! You have won!`;
             
-            console.log(`Player ${victoryStatus.winner} has won! Their score is now: ${playerOne.score}`);
+            console.log(`Player ${victoryStatus.winner} has won ${victoryStatus.type}! Their score is now: ${playerOne.score}`);
 
             _resetGame();
         }
@@ -177,10 +189,14 @@ const game = ( (doc) => {
     const _resetGame = () => {
         board.state = [['', '', ''], ['', '', ''], ['', '', '']];
 
-        victoryStatus = {
+        board.victoryTracker = {
             'winner': null,
             'type': null
         }
+
+        victoryStatus.winner = null;
+        victoryStatus.type = null;
+        console.log(victoryStatus);
         
         currentPlayer = 1;
         currentPlayerMove = null;
