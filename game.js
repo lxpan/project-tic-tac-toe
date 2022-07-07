@@ -249,16 +249,6 @@ function setupModal() {
     window.addEventListener("click", windowOnClick);
 }
 
-
-const gameInstance = game;
-const gameBoardDiv = document.querySelector('.gameBoard');
-const victoryDiv = document.querySelector('.victoryMessage');
-
-setupModal();
-
-const btn = document.querySelector('#submit');
-const form = document.querySelector('#playerNameForm');
-
 function readFormData(e) {
     const modifyPlayerNameDOM = () => {
         let p1NameInput = document.getElementById('playerOneName');
@@ -284,12 +274,19 @@ function readFormData(e) {
     modifyPlayerNameDOM();
 }
 
-btn.addEventListener('click', readFormData);
-
+const gameInstance = game;
+const gameBoardDiv = document.querySelector('.gameBoard');
+const victoryDiv = document.querySelector('.victoryMessage');
 const startBtn = document.querySelector('.start');
-startBtn.addEventListener('click', startOrRestartGame);
-
 let canRestart = false;
+
+setupModal();
+
+const btn = document.querySelector('#submit');
+const form = document.querySelector('#playerNameForm');
+
+btn.addEventListener('click', readFormData);
+startBtn.addEventListener('click', startOrRestartGame);
 
 function startOrRestartGame() {
     gameBoardDiv.classList.remove('hidden');
