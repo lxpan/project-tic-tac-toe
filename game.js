@@ -19,7 +19,7 @@ TEST_BOARD = [['X', 'X', 'O'], ['X', 'O', 'O'], ['', '', 'X']];
 EMPTY_BOARD = [['', '', ''], ['', '', ''], ['', '', '']];
 
 const gameBoard = ( () => {
-    const boardState = EMPTY_BOARD;
+    const state = EMPTY_BOARD;
 
     const checkBoardForTie = (boardArr) => {
         const playerMovesOnly = boardArr.flat().filter(x => x == 'X' || x == 'O')
@@ -31,7 +31,7 @@ const gameBoard = ( () => {
     }
 
     return {
-        boardState,
+        state,
         checkBoardForTie
     }
 }) ();
@@ -73,7 +73,7 @@ const game = ( (doc) => {
         const checkRowsForVictory = () => {
             // for each row, check if rows are allEqual
             for(let i = 0; i < 3; i++) {
-                checkPlayerWin(board.boardState[i], 'horizontally');
+                checkPlayerWin(board.state[i], 'horizontally');
             }
         }
     
@@ -82,7 +82,7 @@ const game = ( (doc) => {
                 const moves = [];
     
                 for(let row = 0; row < 3; row++) {
-                    moves.push(board.boardState[row][col])
+                    moves.push(board.state[row][col])
                 }
     
                 checkPlayerWin(moves, 'vertically');
@@ -93,14 +93,14 @@ const game = ( (doc) => {
             let mainDiagonalMoves = [];
             // check main diagonal
             for(let i = 0; i < 3; i++) {
-                mainDiagonalMoves.push(board.boardState[i][i]);
+                mainDiagonalMoves.push(board.state[i][i]);
             }
     
             // check reverse diagonal
             reverseDiagonalMoves = [];
             let row = 0; let col = 2;
             while(col >= 0) {
-                reverseDiagonalMoves.push(board.boardState[row][col]);
+                reverseDiagonalMoves.push(board.state[row][col]);
                 row++;
                 col--;
             }
@@ -129,7 +129,7 @@ const game = ( (doc) => {
             const playedColumnNumber = evt.target.dataset.columnNumber;
 
             // write current move to gameBoard array
-            board.boardState[playedRowNumber - 1][playedColumnNumber - 1] = currentPlayerMove;
+            board.state[playedRowNumber - 1][playedColumnNumber - 1] = currentPlayerMove;
         }
 
         // clear victory message on new round
@@ -153,7 +153,7 @@ const game = ( (doc) => {
 
         _writePlayedMoveToBoard();
         checkBoardForVictory();
-        if (board.checkBoardForTie(board.boardState)) {
+        if (board.checkBoardForTie(board.state)) {
             _resetGame();
         }
 
@@ -175,7 +175,7 @@ const game = ( (doc) => {
     }
 
     const _resetGame = () => {
-        board.boardState = [['', '', ''], ['', '', ''], ['', '', '']];
+        board.state = [['', '', ''], ['', '', ''], ['', '', '']];
 
         victoryStatus = {
             'winner': null,
@@ -192,7 +192,7 @@ const game = ( (doc) => {
         const gameBoardCells = gameBoardContainer.children;
         
         // for each board array slot
-        const flatArray = board.boardState.flat();
+        const flatArray = board.state.flat();
         
         for(let i = 0; i < flatArray.length; i++) {
             let cellDiv = gameBoardCells[i];
