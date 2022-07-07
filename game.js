@@ -294,9 +294,15 @@ function startOrRestartGame() {
 
     if(canRestart) {
         gameInstance._resetGame();
+        victoryDiv.textContent = '';
+
+        // reset DOM score
         gameInstance._updateScoreDOM(1, 0);
         gameInstance._updateScoreDOM(2, 0);
-        victoryDiv.textContent = '';
+        // reset player score
+        gameInstance.playerOne.score = 0;
+        gameInstance.playerTwo.score = 0;
+        
         canRestart = false;
     }
 }
