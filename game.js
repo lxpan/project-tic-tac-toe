@@ -169,7 +169,7 @@ const game = ( (doc) => {
                 _updateScoreDOM(2, ++playerTwo.score);
             }
             // innerHTML should be safe here as there is no user input involved
-            victoryDiv.innerHTML = `Congratulations Player ${board._victoryStatus.winner}! <br>You have won!`;
+            victoryDiv.textContent = `Congratulations Player ${board._victoryStatus.winner}! \n You have won!`;
             
             console.log(`Player ${board._victoryStatus.winner} has won ${board._victoryStatus.type}! Their score is now: ${playerOne.score}`);
 
