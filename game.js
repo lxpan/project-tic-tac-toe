@@ -20,7 +20,7 @@ EMPTY_BOARD = [['', '', ''], ['', '', ''], ['', '', '']];
 
 const gameBoard = ( () => {
     const state = EMPTY_BOARD;
-    const victoryTracker = {
+    const _victoryStatus = {
         'winner': null,
         'type': null
     }
@@ -31,12 +31,12 @@ const gameBoard = ( () => {
         const allEqualO = movesArray.every(move => move === 'O');
 
         if(allEqualX) {
-            victoryTracker.winner = 1;
-            victoryTracker.type = winType;
+            _victoryStatus.winner = 1;
+            _victoryStatus.type = winType;
         }
         else if(allEqualO) {
-            victoryTracker.winner = 2;
-            victoryTracker.type = winType;
+            _victoryStatus.winner = 2;
+            _victoryStatus.type = winType;
         }
     }
 
@@ -84,7 +84,7 @@ const gameBoard = ( () => {
         checkRowsForVictory();
         checkColumnsForVictory();
         checkDiagonalsForVictory();    
-        return victoryTracker;
+        return _victoryStatus;
     }
 
     const checkBoardForTie = (boardArr) => {
@@ -100,7 +100,7 @@ const gameBoard = ( () => {
         state,
         checkBoardForVictory,
         checkBoardForTie,
-        victoryTracker
+        _victoryStatus
     }
 }) ();
 
@@ -193,7 +193,8 @@ const game = ( (doc) => {
 
         board.state = [['', '', ''], ['', '', ''], ['', '', '']];
 
-        resetVictoryObject(board.victoryTracker);
+        // two objects are required due to stale closure properties
+        resetVictoryObject(board._victoryStatus);
         resetVictoryObject(victoryStatus);
         
         currentPlayer = 1;
