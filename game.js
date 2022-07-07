@@ -114,11 +114,6 @@ const game = ( (doc) => {
     let currentPlayer = 1;
     let currentPlayerMove = null;
 
-    // let victoryStatus = {
-    //     'winner': null,
-    //     'type': null
-    // }
-
     const victoryDiv = document.querySelector('.victoryMessage');
 
     const _updateScoreDOM = (player, score) => {
@@ -159,10 +154,6 @@ const game = ( (doc) => {
         }
 
         _writePlayedMoveToBoard();
-
-        // this needs to mutate victoryStatus
-        // return: who won, win type
-        // victoryStatus = board.checkBoardForVictory(board.state);
         board.checkBoardForVictory(board.state);
 
         if (board.checkBoardForTie(board.state)) {
