@@ -222,7 +222,9 @@ const game = ( (doc) => {
     }
 
     return {
-        renderGameBoard
+        renderGameBoard,
+        playerOne,
+        playerTwo
     };
 }) (document);
 
