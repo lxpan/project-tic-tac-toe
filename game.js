@@ -22,6 +22,7 @@ const gameBoard = ( () => {
     const state = EMPTY_BOARD;
     const _victoryStatus = {
         'winner': null,
+        'playerName': null,
         'type': null
     }
 
@@ -164,12 +165,15 @@ const game = ( (doc) => {
         if(board._victoryStatus.winner) {
             if(board._victoryStatus.winner == '1') {
                 _updateScoreDOM(1, ++playerOne.score);
+                board._victoryStatus.playerName = playerOne.name;
             }
             else if(board._victoryStatus.winner == '2') {
                 _updateScoreDOM(2, ++playerTwo.score);
+                board._victoryStatus.playerName = playerTwo.name;
             }
-            // innerHTML should be safe here as there is no user input involved
-            victoryDiv.textContent = `Congratulations Player ${board._victoryStatus.winner}! \n You have won!`;
+            victoryDiv.textContent = (board._victoryStatus.playerName) ?
+                `Congratulations ${board._victoryStatus.playerName}! \n You have won!` :
+                `Congratulations Player ${board._victoryStatus.playerName}! \n You have won!`;
             
             console.log(`Player ${board._victoryStatus.winner} has won ${board._victoryStatus.type}! Their score is now: ${playerOne.score}`);
 
@@ -180,6 +184,7 @@ const game = ( (doc) => {
     const _resetGame = () => {
         function resetVictoryObject(vObj) {
             vObj.winner = null;
+            vObj.playerName = null;
             vObj.type = null;
         }
 
