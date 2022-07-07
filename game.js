@@ -195,6 +195,11 @@ const game = ( (doc) => {
         renderGameBoard();
     }
 
+    const resetPlayerScores = () => {
+        playerOne.score = 0;
+        playerTwo.score = 0;
+    }
+
     const renderGameBoard = () => {
         const gameBoardContainer = doc.querySelector('.gameBoard');
         const gameBoardCells = gameBoardContainer.children;
@@ -218,7 +223,8 @@ const game = ( (doc) => {
         playerOne,
         playerTwo,
         _resetGame,
-        _updateScoreDOM
+        _updateScoreDOM,
+        resetPlayerScores
     };
 }) (document);
 
@@ -300,9 +306,7 @@ function startOrRestartGame() {
         gameInstance._updateScoreDOM(1, 0);
         gameInstance._updateScoreDOM(2, 0);
         // reset player score
-        gameInstance.playerOne.score = 0;
-        gameInstance.playerTwo.score = 0;
-        
+        gameInstance.resetPlayerScores();    
         canRestart = false;
     }
 }
