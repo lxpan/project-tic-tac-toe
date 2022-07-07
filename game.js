@@ -84,7 +84,7 @@ const gameBoard = ( () => {
         checkRowsForVictory();
         checkColumnsForVictory();
         checkDiagonalsForVictory();    
-        return _victoryStatus;
+        // return _victoryStatus;
     }
 
     const checkBoardForTie = (boardArr) => {
@@ -114,10 +114,10 @@ const game = ( (doc) => {
     let currentPlayer = 1;
     let currentPlayerMove = null;
 
-    let victoryStatus = {
-        'winner': null,
-        'type': null
-    }
+    // let victoryStatus = {
+    //     'winner': null,
+    //     'type': null
+    // }
 
     const victoryDiv = document.querySelector('.victoryMessage');
 
@@ -140,7 +140,7 @@ const game = ( (doc) => {
         }
 
         // clear victory message on new round
-        if(!victoryStatus.winner) {
+        if(!board._victoryStatus.winner) {
             victoryDiv.textContent = '';
         }
 
@@ -162,24 +162,25 @@ const game = ( (doc) => {
 
         // this needs to mutate victoryStatus
         // return: who won, win type
-        victoryStatus = board.checkBoardForVictory(board.state);
+        // victoryStatus = board.checkBoardForVictory(board.state);
+        board.checkBoardForVictory(board.state);
 
         if (board.checkBoardForTie(board.state)) {
             _resetGame();
         }
 
         // update the score if we have a winner
-        if(victoryStatus.winner) {
-            if(victoryStatus.winner == '1') {
+        if(board._victoryStatus.winner) {
+            if(board._victoryStatus.winner == '1') {
                 _updateScoreDOM(1, ++playerOne.score);
             }
-            else if(victoryStatus.winner == '2') {
+            else if(board._victoryStatus.winner == '2') {
                 _updateScoreDOM(2, ++playerTwo.score);
             }
 
-            victoryDiv.textContent = `Congratulations Player ${victoryStatus.winner}! You have won!`;
+            victoryDiv.textContent = `Congratulations Player ${board._victoryStatus.winner}! You have won!`;
             
-            console.log(`Player ${victoryStatus.winner} has won ${victoryStatus.type}! Their score is now: ${playerOne.score}`);
+            console.log(`Player ${board._victoryStatus.winner} has won ${board._victoryStatus.type}! Their score is now: ${playerOne.score}`);
 
             _resetGame();
         }
@@ -192,10 +193,8 @@ const game = ( (doc) => {
         }
 
         board.state = [['', '', ''], ['', '', ''], ['', '', '']];
-
-        // two objects are required due to stale closure properties
+        
         resetVictoryObject(board._victoryStatus);
-        resetVictoryObject(victoryStatus);
         
         currentPlayer = 1;
         currentPlayerMove = null;
