@@ -245,7 +245,7 @@ function setupModal() {
 
 
 const gameInstance = game;
-gameInstance.renderGameBoard();
+const gameBoardDiv = document.querySelector('.gameBoard');
 
 setupModal();
 
@@ -278,3 +278,11 @@ function readFormData(e) {
 }
 
 btn.addEventListener('click', readFormData);
+
+const startBtn = document.querySelector('.start');
+startBtn.addEventListener('click', startGame);
+
+function startGame() {
+    gameBoardDiv.classList.remove('hidden');
+    gameInstance.renderGameBoard();
+}
