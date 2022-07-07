@@ -51,6 +51,7 @@ body {
 
 .scoreBoard {
     margin-top: 20px;
+    margin-bottom: 20px;
     width: calc( (var(--board-slot-length) + var(--board-slot-padding) * 2 + .3em) * 3);
     border: solid black;
 
