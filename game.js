@@ -187,15 +187,16 @@ const game = ( (doc) => {
     }
 
     const _resetGame = () => {
-        board.state = [['', '', ''], ['', '', ''], ['', '', '']];
-
-        board.victoryTracker = {
-            'winner': null,
-            'type': null
+        function resetVictoryObject(vObj) {
+            vObj.winner = null;
+            vObj.type = null;
         }
 
-        victoryStatus.winner = null;
-        victoryStatus.type = null;
+        board.state = [['', '', ''], ['', '', ''], ['', '', '']];
+
+        resetVictoryObject(board.victoryTracker);
+        resetVictoryObject(victoryStatus);
+        
         console.log(victoryStatus);
         
         currentPlayer = 1;
