@@ -115,8 +115,6 @@ const game = ( (doc) => {
     let currentPlayer = 1;
     let currentPlayerMove = null;
 
-    const victoryDiv = document.querySelector('.victoryMessage');
-
     const _updateScoreDOM = (player, score) => {
         const idName = (player == 1) ? 'playerOneScore' : 'playerTwoScore';
         const playerScore = doc.getElementById(idName);
@@ -218,7 +216,9 @@ const game = ( (doc) => {
     return {
         renderGameBoard,
         playerOne,
-        playerTwo
+        playerTwo,
+        _resetGame,
+        _updateScoreDOM
     };
 }) (document);
 
@@ -246,6 +246,7 @@ function setupModal() {
 
 const gameInstance = game;
 const gameBoardDiv = document.querySelector('.gameBoard');
+const victoryDiv = document.querySelector('.victoryMessage');
 
 setupModal();
 
@@ -280,10 +281,22 @@ function readFormData(e) {
 btn.addEventListener('click', readFormData);
 
 const startBtn = document.querySelector('.start');
-startBtn.addEventListener('click', startGame);
+startBtn.addEventListener('click', startOrRestartGame);
 
-function startGame() {
+let canRestart = false;
+
+function startOrRestartGame() {
     gameBoardDiv.classList.remove('hidden');
     gameInstance.renderGameBoard();
     startBtn.textContent = 'Restart';
+    startMode = 'restart';
+    canRestart = true;
+
+    if(canRestart) {
+        gameInstance._resetGame();
+        gameInstance._updateScoreDOM(1, 0);
+        gameInstance._updateScoreDOM(2, 0);
+        victoryDiv.textContent = '';
+        canRestart = false;
+    }
 }
