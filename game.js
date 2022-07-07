@@ -26,7 +26,6 @@ const gameBoard = ( () => {
     }
 
     const checkThreeInARow = (movesObj, winType) => {
-        // console.log('Check for victory...');
         const movesArray = Array.from(movesObj);
         const allEqualX = movesArray.every(move => move === 'X');
         const allEqualO = movesArray.every(move => move === 'O');
@@ -196,8 +195,6 @@ const game = ( (doc) => {
 
         resetVictoryObject(board.victoryTracker);
         resetVictoryObject(victoryStatus);
-        
-        console.log(victoryStatus);
         
         currentPlayer = 1;
         currentPlayerMove = null;
